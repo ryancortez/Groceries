@@ -49,14 +49,6 @@
     
 }
 
-
-#pragma mark - Actions
-
-- (IBAction)addButtonPressed:(id)sender {
-
-}
-
-
 #pragma mark - Segues
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -66,10 +58,6 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         groceryItemTableViewController.groceryCategory = _groceryCategories[indexPath.row];
     }
-    
-//    if ([segue.identifier isEqualToString:@"grocertyCategoryTableViewToAddGroceryCategoryTableViewSegue"]) {
-//        
-//    }
 }
 
 @end

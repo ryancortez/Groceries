@@ -26,11 +26,6 @@
     return _groceryCategory.groceryItems.count;
 }
 
-
-- (IBAction)addButtonPressed:(id)sender {
-
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"groceryItemTableViewToAddGroceryItemTableViewSegue"]) {
         UINavigationController *navigationController = (UINavigationController *) segue.destinationViewController;
