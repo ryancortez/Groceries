@@ -7,6 +7,7 @@
 //
 
 #import "GroceryItemTableViewController.h"
+#import "AddGroceryItemController.h"
 
 @implementation GroceryItemTableViewController
 
@@ -27,10 +28,15 @@
 
 
 - (IBAction)addButtonPressed:(id)sender {
-    AddGroceryItemController *addGroceryItemController = (AddGroceryItemController *) [self.storyboard instantiateViewControllerWithIdentifier: @"AddGroceryItemView"];
-//    addGroceryItemController.groceryCategory = _groceryCategory;
-    [self presentViewController:addGroceryItemController animated:YES completion:^{
-    }];
+
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"groceryItemTableViewToAddGroceryItemTableViewSegue"]) {
+        UINavigationController *navigationController = (UINavigationController *) segue.destinationViewController;
+        AddGroceryItemController *addGroceryItemController = navigationController.viewControllers.firstObject;
+        addGroceryItemController.groceryCategory = _groceryCategory;
+    }
 }
 
 @end

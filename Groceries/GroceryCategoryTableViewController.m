@@ -53,8 +53,7 @@
 #pragma mark - Actions
 
 - (IBAction)addButtonPressed:(id)sender {
-    AddGroceryCategoryViewController *addGroceryCategoryViewController = (AddGroceryCategoryViewController *) [self.storyboard instantiateViewControllerWithIdentifier: @"AddGroceryCategoryView"];
-    [self presentViewController:addGroceryCategoryViewController animated:YES completion:^{    }];
+
 }
 
 
@@ -67,6 +66,10 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         groceryItemTableViewController.groceryCategory = _groceryCategories[indexPath.row];
     }
+    
+//    if ([segue.identifier isEqualToString:@"grocertyCategoryTableViewToAddGroceryCategoryTableViewSegue"]) {
+//        
+//    }
 }
 
 @end
