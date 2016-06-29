@@ -10,17 +10,19 @@
 
 @implementation GroceryCategoryTableViewController
 
-
 #pragma View Lifecycle
 
 -(void)viewDidLoad {
     self.navigationItem.title = @"Groceries";
+    
+    // Create a default collection of grocery lists
     [self initModel];
 }
 
 
 #pragma mark - Helper Methods
 
+// Create a default collection of grocery lists
 - (void) initModel {
     GroceryCategory *dinner = [[GroceryCategory alloc]initWithTitle:@"Dinner" andGroceryItems:(NSMutableArray * ) @[@"Carrots", @"Onions"]];
     GroceryCategory *breakfast = [[GroceryCategory alloc]initWithTitle:@"Breakfast" andGroceryItems:(NSMutableArray * ) @[@"Eggs", @"Bacon"]];
@@ -28,8 +30,14 @@
 }
 
 
+- (void) saveGroceryCategory {
+    
+}
+
+
 #pragma mark - TableView Data Source
 
+//
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *groceryCategoryCell = [tableView dequeueReusableCellWithIdentifier:@"GroceryCategoryCell"];
     GroceryCategory *groceryCategory = _groceryCategories[indexPath.row];

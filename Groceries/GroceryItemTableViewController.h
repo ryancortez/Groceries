@@ -10,7 +10,7 @@
 #import "AddGroceryItemController.h"
 #import "GroceryCategory.h"
 
-@interface GroceryItemTableViewController : UITableViewController
+@interface GroceryItemTableViewController : UITableViewController <AddGroceryItemDelegate>
 
 @property GroceryCategory *groceryCategory;
 

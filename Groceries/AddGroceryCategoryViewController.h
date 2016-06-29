@@ -10,8 +10,15 @@
 #import "GroceryCategory.h"
 #import "TextFieldTableViewCell.h"
 
+@protocol AddGroceryCategoryDelegate <NSObject>
+
+- (void) saveGroceryCategory;
+
+@end
+
 @interface AddGroceryCategoryViewController : UITableViewController <UITextFieldDelegate>
 
 @property GroceryCategory *groceryCategory;
+@property id<AddGroceryCategoryDelegate> delegate;
 
 @end

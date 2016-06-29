@@ -11,8 +11,8 @@
 #import "GroceryCategory.h"
 #import "GroceryItemTableViewController.h"
 
-
-@interface GroceryCategoryTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
+// A view that displays a collection of grocery lists broken up by category
+@interface GroceryCategoryTableViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource, AddGroceryCategoryDelegate>
 
 @property NSMutableArray *groceryCategories;
 
