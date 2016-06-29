@@ -13,6 +13,5 @@
 @interface GroceryItemTableViewController : UITableViewController
 
 @property GroceryCategory *groceryCategory;
-@property NSMutableArray *groceryItems;
 
 @end

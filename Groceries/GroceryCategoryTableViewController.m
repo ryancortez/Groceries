@@ -54,7 +54,6 @@
 
 - (IBAction)addButtonPressed:(id)sender {
     AddGroceryCategoryViewController *addGroceryCategoryViewController = (AddGroceryCategoryViewController *) [self.storyboard instantiateViewControllerWithIdentifier: @"AddGroceryCategoryView"];
-    
     [self presentViewController:addGroceryCategoryViewController animated:YES completion:^{    }];
 }
 
