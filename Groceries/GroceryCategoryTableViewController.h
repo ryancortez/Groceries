@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AddGroceryCategoryViewController.h"
 #import "GroceryCategory.h"
+#import "GroceryItem.h"
 #import "GroceryItemTableViewController.h"
 
 // A view that displays a collection of grocery lists broken up by category

@@ -16,7 +16,7 @@
 		946246351D22F1D30083B315 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 946246331D22F1D30083B315 /* LaunchScreen.storyboard */; };
 		946246441D2300D50083B315 /* AddGroceryCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 946246431D2300D50083B315 /* AddGroceryCategoryViewController.m */; };
 		946246471D2301600083B315 /* GroceryCategoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 946246461D2301600083B315 /* GroceryCategoryTableViewController.m */; };
-		9462464B1D2301CF0083B315 /* AddGroceryItemController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462464A1D2301CF0083B315 /* AddGroceryItemController.m */; };
+		9462464B1D2301CF0083B315 /* AddGroceryItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462464A1D2301CF0083B315 /* AddGroceryItemViewController.m */; };
 		9462464E1D2302160083B315 /* GroceryItemTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9462464D1D2302160083B315 /* GroceryItemTableViewController.m */; };
 		946246521D230A930083B315 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 946246501D230A930083B315 /* Main.storyboard */; };
 /* End PBXBuildFile section */
@@ -39,8 +39,8 @@
 		946246431D2300D50083B315 /* AddGroceryCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddGroceryCategoryViewController.m; sourceTree = "<group>"; };
 		946246451D2301600083B315 /* GroceryCategoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroceryCategoryTableViewController.h; sourceTree = "<group>"; };
 		946246461D2301600083B315 /* GroceryCategoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroceryCategoryTableViewController.m; sourceTree = "<group>"; };
-		946246491D2301CF0083B315 /* AddGroceryItemController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddGroceryItemController.h; sourceTree = "<group>"; };
-		9462464A1D2301CF0083B315 /* AddGroceryItemController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddGroceryItemController.m; sourceTree = "<group>"; };
+		946246491D2301CF0083B315 /* AddGroceryItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddGroceryItemViewController.h; sourceTree = "<group>"; };
+		9462464A1D2301CF0083B315 /* AddGroceryItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddGroceryItemViewController.m; sourceTree = "<group>"; };
 		9462464C1D2302160083B315 /* GroceryItemTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroceryItemTableViewController.h; sourceTree = "<group>"; };
 		9462464D1D2302160083B315 /* GroceryItemTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroceryItemTableViewController.m; sourceTree = "<group>"; };
 		946246511D230A930083B315 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -140,8 +140,8 @@
 			children = (
 				946246421D2300D50083B315 /* AddGroceryCategoryViewController.h */,
 				946246431D2300D50083B315 /* AddGroceryCategoryViewController.m */,
-				946246491D2301CF0083B315 /* AddGroceryItemController.h */,
-				9462464A1D2301CF0083B315 /* AddGroceryItemController.m */,
+				946246491D2301CF0083B315 /* AddGroceryItemViewController.h */,
+				9462464A1D2301CF0083B315 /* AddGroceryItemViewController.m */,
 			);
 			name = "Modal View";
 			sourceTree = "<group>";
@@ -227,7 +227,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9462464B1D2301CF0083B315 /* AddGroceryItemController.m in Sources */,
+				9462464B1D2301CF0083B315 /* AddGroceryItemViewController.m in Sources */,
 				9462462A1D22F1D30083B315 /* AppDelegate.m in Sources */,
 				9402F7041D232435002F4EBB /* GroceryItem.m in Sources */,
 				9462464E1D2302160083B315 /* GroceryItemTableViewController.m in Sources */,

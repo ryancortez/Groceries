@@ -12,7 +12,7 @@
 
 @protocol AddGroceryCategoryDelegate <NSObject>
 
-- (void) saveGroceryCategory;
+- (void) saveGroceryItems: (NSArray *) groceryItems inGroceryCategory: (GroceryCategory *) groceryCategory;
 
 @end
 

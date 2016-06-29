@@ -44,7 +44,7 @@
                     <navigationItem key="navigationItem" id="hxH-yd-PuL">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="u19-Ed-irR">
                             <connections>
-                                <action selector="closeButtonPressed:" destination="oFp-w6-PXA" id="zx2-dr-v8q"/>
+                                <action selector="cancelButtonPressed:" destination="oFp-w6-PXA" id="Jvo-IY-ExF"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="19b-ee-GXL">
@@ -97,10 +97,10 @@
             </objects>
             <point key="canvasLocation" x="1027" y="306"/>
         </scene>
-        <!--Add Grocery Item Controller-->
+        <!--Add Grocery Item View Controller-->
         <scene sceneID="4DT-pZ-uPv">
             <objects>
-                <tableViewController id="orY-ax-4oo" customClass="AddGroceryItemController" sceneMemberID="viewController">
+                <tableViewController id="orY-ax-4oo" customClass="AddGroceryItemViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="F4a-Z2-1hI">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -136,12 +136,12 @@
                     <navigationItem key="navigationItem" id="DNN-fz-4zU">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="M6M-7g-iED">
                             <connections>
-                                <action selector="closeButtonPressed:" destination="orY-ax-4oo" id="552-By-Dvc"/>
+                                <action selector="cancelButtonPressed:" destination="orY-ax-4oo" id="5A7-td-bgd"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="9vu-1A-695">
                             <connections>
-                                <action selector="saveButtonPressed:" destination="orY-ax-4oo" id="NkX-oc-12M"/>
+                                <action selector="saveButtonPressed:" destination="orY-ax-4oo" id="ucJ-qK-vew"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

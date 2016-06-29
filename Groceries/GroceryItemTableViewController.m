@@ -7,7 +7,7 @@
 //
 
 #import "GroceryItemTableViewController.h"
-#import "AddGroceryItemController.h"
+#import "AddGroceryItemViewController.h"
 
 @implementation GroceryItemTableViewController
 
@@ -15,13 +15,14 @@
     self.navigationItem.title = _groceryCategory.title;
 }
 
-- (void) saveGroceryItem {
-    
+- (void) saveGroceryItems: (NSArray *) groceryItems inGroceryCategory: (GroceryCategory *) groceryCategory {
+    [_groceryCategory setTitle:groceryCategory.title andGroceryItems:(NSMutableArray *) [_groceryCategory.groceryItems arrayByAddingObjectsFromArray:groceryCategory.groceryItems]];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *groceryItemCell = [tableView dequeueReusableCellWithIdentifier:@"GroceryItemCell"];
-    groceryItemCell.textLabel.text = _groceryCategory.groceryItems[indexPath.row];
+    GroceryItem *groceryItem = _groceryCategory.groceryItems[indexPath.row];
+    groceryItemCell.textLabel.text = groceryItem.title;
     return groceryItemCell;
 }
 
@@ -33,8 +34,13 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"groceryItemTableViewToAddGroceryItemTableViewSegue"]) {
         UINavigationController *navigationController = (UINavigationController *) segue.destinationViewController;
-        AddGroceryItemController *addGroceryItemController = navigationController.viewControllers.firstObject;
-        addGroceryItemController.groceryCategory = _groceryCategory;
+        AddGroceryItemViewController *addGroceryItemViewController = navigationController.viewControllers.firstObject;
+        addGroceryItemViewController.groceryCategory = _groceryCategory;
+    }
+    
+    if ([segue.identifier isEqualToString:@"groceryItemTableViewToAddGroceryItemTableViewSegue"]) {
+        AddGroceryItemViewController *addGroceryItemViewController = (AddGroceryItemViewController *) segue.destinationViewController;
+        addGroceryItemViewController.delegate = self;
     }
 }
 

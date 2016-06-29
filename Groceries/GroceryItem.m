@@ -10,4 +10,10 @@
 
 @implementation GroceryItem
 
+- (instancetype) initWithTitle: (NSString *) title {
+    self = [super init];
+    self.title = title;
+    return self;
+}
+
 @end

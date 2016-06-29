@@ -17,6 +17,8 @@
     
     // Create a default collection of grocery lists
     [self initModel];
+    
+    
 }
 
 
@@ -24,14 +26,20 @@
 
 // Create a default collection of grocery lists
 - (void) initModel {
-    GroceryCategory *dinner = [[GroceryCategory alloc]initWithTitle:@"Dinner" andGroceryItems:(NSMutableArray * ) @[@"Carrots", @"Onions"]];
-    GroceryCategory *breakfast = [[GroceryCategory alloc]initWithTitle:@"Breakfast" andGroceryItems:(NSMutableArray * ) @[@"Eggs", @"Bacon"]];
+    
+    GroceryItem *carrots = [[GroceryItem alloc]initWithTitle:@"Carrots"];
+    GroceryItem *onions = [[GroceryItem alloc]initWithTitle:@"Onions"];
+    GroceryItem *eggs = [[GroceryItem alloc]initWithTitle:@"Eggs"];
+    GroceryItem *bacon = [[GroceryItem alloc]initWithTitle:@"Bacon"];
+    
+    GroceryCategory *dinner = [[GroceryCategory alloc]initWithTitle:@"Dinner" andGroceryItems:(NSMutableArray * ) @[carrots, onions]];
+    GroceryCategory *breakfast = [[GroceryCategory alloc]initWithTitle:@"Breakfast" andGroceryItems:(NSMutableArray * ) @[eggs, bacon]];
     _groceryCategories = (NSMutableArray *) @[dinner, breakfast];
 }
 
 
-- (void) saveGroceryCategory {
-    
+- (void) saveGroceryItems: (NSArray *) groceryItems inGroceryCategory: (GroceryCategory *) groceryCategory {
+    [_groceryCategories addObject:[groceryCategory initWithTitle:groceryCategory.title andGroceryItems:(NSMutableArray *) groceryItems]];
 }
 
 
@@ -66,6 +74,12 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         groceryItemTableViewController.groceryCategory = _groceryCategories[indexPath.row];
     }
+    
+    if ([segue.identifier isEqualToString:@"groceryItemTableViewToAddGroceryItemTableViewSegue"]) {
+        AddGroceryCategoryViewController *addGroceryCategoryViewController = (AddGroceryCategoryViewController *) segue.destinationViewController;
+        addGroceryCategoryViewController.delegate = self;
+    }
+    
 }
 
 @end

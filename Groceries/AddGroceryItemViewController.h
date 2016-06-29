@@ -1,5 +1,5 @@
 //
-//  AddGroceryItemController.h
+//  AddGroceryItemViewController.h
 //  Groceries
 //
 //  Created by Ryan Cortez on 6/28/16.
@@ -8,15 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "GroceryCategory.h"
+#import "GroceryItem.h"
 #import "TextFieldTableViewCell.h"
 
 @protocol AddGroceryItemDelegate <NSObject>
 
-- (void) saveGroceryItem;
+- (void) saveGroceryItems: (NSArray *) groceryItems inGroceryCategory: (GroceryCategory *) groceryCategory;
 
 @end
 
-@interface AddGroceryItemController : UITableViewController <UITextFieldDelegate>
+@interface AddGroceryItemViewController : UITableViewController <UITextFieldDelegate>
 
 @property GroceryCategory *groceryCategory;
 @property id<AddGroceryItemDelegate> delegate;

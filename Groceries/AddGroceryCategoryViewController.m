@@ -47,12 +47,14 @@
     return YES;
 }
 
-- (IBAction)closeButtonPressed:(id)sender {
+- (IBAction)cancelButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{    }];
     
 }
 - (IBAction)saveButtonPressed:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:^{    }];
+    [self.delegate saveGroceryItems:_groceryCategory.groceryItems inGroceryCategory:_groceryCategory];
+    
+    [self dismissViewControllerAnimated:YES completion:^{  }];
     
 }
 

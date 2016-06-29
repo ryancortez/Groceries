@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AddGroceryItemController.h"
+#import "AddGroceryItemViewController.h"
 #import "GroceryCategory.h"
+#import "GroceryItem.h"
 
 @interface GroceryItemTableViewController : UITableViewController <AddGroceryItemDelegate>
 

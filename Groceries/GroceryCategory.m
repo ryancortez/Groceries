@@ -25,4 +25,9 @@
     return self;
 }
 
+- (void)setTitle: (NSString *) title andGroceryItems: (NSMutableArray *) groceryItems {
+    self.title = title;
+    self.groceryItems = groceryItems;
+}
+
 @end

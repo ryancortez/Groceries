@@ -12,4 +12,6 @@
 
 @property NSString *title;
 
+- (instancetype) initWithTitle: (NSString *) title;
+
 @end
