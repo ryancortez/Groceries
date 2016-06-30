@@ -10,7 +10,9 @@
 
 @implementation AddGroceryItemViewController
 
+
 -(void)viewDidLoad {
+    
     self.navigationController.title = _groceryCategory.title;
 }
 
@@ -61,7 +63,7 @@
     
     TextFieldTableViewCell *textFieldTableViewCell = [self.tableView cellForRowAtIndexPath:indexPath];
     if (![textFieldTableViewCell.textField.text isEqual: @""]) {
-        GroceryItem *groceryItem = [[GroceryItem alloc]initWithTitle:textFieldTableViewCell.textField.text];
+        GroceryItem *groceryItem = [[GroceryItem alloc]initWithTitle:textFieldTableViewCell.textField.text]; 
         [_groceryCategory.groceryItems addObject:groceryItem];
     }
     

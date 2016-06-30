@@ -30,4 +30,8 @@
     self.groceryItems = groceryItems;
 }
 
+- (void)addGroceryItem:(GroceryItem *)groceryItem {
+    [self.groceryItems addObject:groceryItem];
+}
+
 @end

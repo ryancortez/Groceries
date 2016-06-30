@@ -17,8 +17,6 @@
     
     // Create a default collection of grocery lists
     [self initModel];
-    
-    
 }
 
 
@@ -32,14 +30,20 @@
     GroceryItem *eggs = [[GroceryItem alloc]initWithTitle:@"Eggs"];
     GroceryItem *bacon = [[GroceryItem alloc]initWithTitle:@"Bacon"];
     
-    GroceryCategory *dinner = [[GroceryCategory alloc]initWithTitle:@"Dinner" andGroceryItems:(NSMutableArray * ) @[carrots, onions]];
-    GroceryCategory *breakfast = [[GroceryCategory alloc]initWithTitle:@"Breakfast" andGroceryItems:(NSMutableArray * ) @[eggs, bacon]];
-    _groceryCategories = (NSMutableArray *) @[dinner, breakfast];
+    NSMutableArray *dinnerArray = [[NSMutableArray alloc]initWithObjects:carrots, onions, nil];
+    NSMutableArray *breakfastArray = [[NSMutableArray alloc]initWithObjects:eggs, bacon, nil];
+    
+    GroceryCategory *dinner = [[GroceryCategory alloc]initWithTitle:@"Dinner" andGroceryItems:dinnerArray];
+    GroceryCategory *breakfast = [[GroceryCategory alloc]initWithTitle:@"Breakfast" andGroceryItems:breakfastArray];
+    
+    NSMutableArray *categoriesArray = [[NSMutableArray alloc]initWithObjects:dinner, breakfast, nil];
+    _groceryCategories = categoriesArray;
 }
 
 
 - (void) saveGroceryItems: (NSArray *) groceryItems inGroceryCategory: (GroceryCategory *) groceryCategory {
-    [_groceryCategories addObject:[groceryCategory initWithTitle:groceryCategory.title andGroceryItems:(NSMutableArray *) groceryItems]];
+    NSMutableArray *groceryItemsMutableArray = [[NSMutableArray alloc]initWithArray:groceryItems];
+    [_groceryCategories addObject:[groceryCategory initWithTitle:groceryCategory.title andGroceryItems:groceryItemsMutableArray]];
 }
 
 
@@ -56,6 +60,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _groceryCategories.count;
+    
+    
 }
 
 
@@ -75,7 +81,7 @@
         groceryItemTableViewController.groceryCategory = _groceryCategories[indexPath.row];
     }
     
-    if ([segue.identifier isEqualToString:@"groceryItemTableViewToAddGroceryItemTableViewSegue"]) {
+    if ([segue.identifier isEqualToString:@"grocertyCategoryTableViewToAddGroceryCategoryTableViewSegue"]) {
         AddGroceryCategoryViewController *addGroceryCategoryViewController = (AddGroceryCategoryViewController *) segue.destinationViewController;
         addGroceryCategoryViewController.delegate = self;
     }

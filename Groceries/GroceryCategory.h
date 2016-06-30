@@ -12,10 +12,11 @@
 @interface GroceryCategory : NSObject
 
 @property NSString *title;
-@property (copy) NSMutableArray *groceryItems;
+@property NSMutableArray *groceryItems;
 
 - (instancetype)initWithTitle: (NSString *) title;
 - (instancetype)initWithTitle: (NSString *) title andGroceryItems: (NSMutableArray *) groceryItems;
 - (void)setTitle: (NSString *) title andGroceryItems: (NSMutableArray *) groceryItems;
+- (void)addGroceryItem:(GroceryItem *)groceryItem;
 
 @end

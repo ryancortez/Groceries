@@ -15,8 +15,13 @@
     self.navigationItem.title = _groceryCategory.title;
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [self.tableView reloadData];
+}
+
 - (void) saveGroceryItems: (NSArray *) groceryItems inGroceryCategory: (GroceryCategory *) groceryCategory {
-    [_groceryCategory setTitle:groceryCategory.title andGroceryItems:(NSMutableArray *) [_groceryCategory.groceryItems arrayByAddingObjectsFromArray:groceryCategory.groceryItems]];
+    NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithArray:groceryCategory.groceryItems];
+    [_groceryCategory setTitle:groceryCategory.title andGroceryItems:mutableArray ];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -35,12 +40,9 @@
     if ([segue.identifier isEqualToString:@"groceryItemTableViewToAddGroceryItemTableViewSegue"]) {
         UINavigationController *navigationController = (UINavigationController *) segue.destinationViewController;
         AddGroceryItemViewController *addGroceryItemViewController = navigationController.viewControllers.firstObject;
-        addGroceryItemViewController.groceryCategory = _groceryCategory;
-    }
-    
-    if ([segue.identifier isEqualToString:@"groceryItemTableViewToAddGroceryItemTableViewSegue"]) {
-        AddGroceryItemViewController *addGroceryItemViewController = (AddGroceryItemViewController *) segue.destinationViewController;
         addGroceryItemViewController.delegate = self;
+        addGroceryItemViewController.groceryCategory = [[GroceryCategory alloc]init];
+        addGroceryItemViewController.groceryCategory = _groceryCategory;
     }
 }
 
