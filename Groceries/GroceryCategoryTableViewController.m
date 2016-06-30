@@ -19,6 +19,10 @@
     [self initModel];
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    [self.tableView reloadData];
+}
+
 
 #pragma mark - Helper Methods
 
@@ -40,7 +44,6 @@
     _groceryCategories = categoriesArray;
 }
 
-
 - (void) saveGroceryItems: (NSArray *) groceryItems inGroceryCategory: (GroceryCategory *) groceryCategory {
     NSMutableArray *groceryItemsMutableArray = [[NSMutableArray alloc]initWithArray:groceryItems];
     [_groceryCategories addObject:[groceryCategory initWithTitle:groceryCategory.title andGroceryItems:groceryItemsMutableArray]];
@@ -60,8 +63,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return _groceryCategories.count;
-    
-    
 }
 
 
@@ -81,9 +82,13 @@
         groceryItemTableViewController.groceryCategory = _groceryCategories[indexPath.row];
     }
     
-    if ([segue.identifier isEqualToString:@"grocertyCategoryTableViewToAddGroceryCategoryTableViewSegue"]) {
-        AddGroceryCategoryViewController *addGroceryCategoryViewController = (AddGroceryCategoryViewController *) segue.destinationViewController;
+    if ([segue.identifier isEqualToString:@"groceryCategoryTableViewToAddGroceryCategoryTableViewSegue"]) {
+        UINavigationController *navigationController = (UINavigationController *) segue.destinationViewController;
+        
+        AddGroceryCategoryViewController *addGroceryCategoryViewController = (AddGroceryCategoryViewController *) navigationController.viewControllers.firstObject;
         addGroceryCategoryViewController.delegate = self;
+        
+        NSLog(@"");
     }
     
 }

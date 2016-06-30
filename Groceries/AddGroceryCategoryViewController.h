@@ -19,6 +19,6 @@
 @interface AddGroceryCategoryViewController : UITableViewController <UITextFieldDelegate>
 
 @property GroceryCategory *groceryCategory;
-@property id<AddGroceryCategoryDelegate> delegate;
+@property (nonatomic, weak) id<AddGroceryCategoryDelegate> delegate;
 
 @end

@@ -88,7 +88,7 @@
                         <barButtonItem key="backBarButtonItem" title="Groceries" id="weP-51-D7A"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ONL-R2-DCc">
                             <connections>
-                                <segue destination="xDP-CP-hZf" kind="presentation" identifier="grocertyCategoryTableViewToAddGroceryCategoryTableViewSegue" id="j3w-oq-qbN"/>
+                                <segue destination="xDP-CP-hZf" kind="presentation" identifier="groceryCategoryTableViewToAddGroceryCategoryTableViewSegue" id="j3w-oq-qbN"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
