@@ -80,6 +80,7 @@
         GroceryItemTableViewController *groceryItemTableViewController = (GroceryItemTableViewController *) segue.destinationViewController;
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         groceryItemTableViewController.groceryCategory = _groceryCategories[indexPath.row];
+        NSLog(@"");
     }
     
     if ([segue.identifier isEqualToString:@"groceryCategoryTableViewToAddGroceryCategoryTableViewSegue"]) {

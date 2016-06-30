@@ -69,11 +69,20 @@
     TextFieldTableViewCell *groceryItem2TableViewCell = [self.tableView cellForRowAtIndexPath:groceryItem2TitleIndexPath];
     TextFieldTableViewCell *groceryItem3TableViewCell = [self.tableView cellForRowAtIndexPath:groceryItem3TitleIndexPath];
     
-    NSString *groceryItem1 = groceryItem1TableViewCell.textField.text;
-    NSString *groceryItem2 = groceryItem2TableViewCell.textField.text;
-    NSString *groceryItem3 = groceryItem3TableViewCell.textField.text;
+    GroceryItem *groceryItem1 = [[GroceryItem alloc]initWithTitle:groceryItem1TableViewCell.textField.text];
+    GroceryItem *groceryItem2 = [[GroceryItem alloc]initWithTitle:groceryItem2TableViewCell.textField.text];
+    GroceryItem *groceryItem3 = [[GroceryItem alloc]initWithTitle:groceryItem3TableViewCell.textField.text];
     
-    NSMutableArray *groceryItems = [NSMutableArray arrayWithObjects:groceryItem1, groceryItem2, groceryItem3, nil];
+    NSMutableArray *groceryItems = [[NSMutableArray alloc]init];
+    if (![groceryItem1.title isEqualToString:@""]) {
+        [groceryItems addObject:groceryItem1];
+    }
+    if (![groceryItem2.title isEqualToString:@""]) {
+        [groceryItems addObject:groceryItem2];
+    }
+    if (![groceryItem3.title isEqualToString:@""]) {
+        [groceryItems addObject:groceryItem3];
+    }
     
     GroceryCategory *category = [[GroceryCategory alloc]initWithTitle:title andGroceryItems:groceryItems];
     
