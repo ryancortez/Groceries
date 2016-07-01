@@ -47,7 +47,7 @@
 
 #pragma mark - TableView Data Source
 
-// Fill in the TableView
+// Fill in the table view
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *groceryItemCell = [tableView dequeueReusableCellWithIdentifier:@"GroceryItemCell"];
     GroceryCategory *groceryCategory = _groceryCategories[self.index];
@@ -56,7 +56,6 @@
     return groceryItemCell;
 }
 
-// Fill the table with this number of the rows
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     GroceryCategory *groceryCategory = _groceryCategories[self.index];
     return groceryCategory.groceryItems.count ;
@@ -64,7 +63,6 @@
 
 #pragma mark - Segue
 
-// Pass information to other ViewControllers
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"groceryItemTableViewToAddGroceryItemTableViewSegue"]) {
         UINavigationController *navigationController = (UINavigationController *) segue.destinationViewController;

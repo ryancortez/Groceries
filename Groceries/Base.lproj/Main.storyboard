@@ -174,7 +174,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Grocery Item TableView Controller" id="dT2-CJ-NQ2">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="okW-wx-BFf">
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="okW-wx-BFf">
                             <connections>
                                 <segue destination="8kz-re-WkH" kind="presentation" identifier="groceryItemTableViewToAddGroceryItemTableViewSegue" id="tTi-bY-ehP"/>
                             </connections>

@@ -22,9 +22,12 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if(indexPath.section == 0) {
-        GroceryCategory *groceryCategory = _groceryCategories[self.index];
-        
+    GroceryCategory *groceryCategory = _groceryCategories[self.index];
+    if (indexPath.section == 0) {
+        TextFieldTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TextFieldTableViewCell"];
+        cell.textField.text = groceryCategory.title;
+        return cell;
+    } else if(indexPath.section == 1) {
         if (indexPath.row < groceryCategory.groceryItems.count) {
             TextFieldTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TextFieldTableViewCell"];
             cell.textField.placeholder = @"Add Grocery Item";
@@ -43,12 +46,18 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     GroceryCategory *groceryCategory = _groceryCategories[self.index];
-    return groceryCategory.groceryItems.count + 1;
+    if (section == 0) {
+        return 1;
+    } else if (section == 1) {
+        return groceryCategory.groceryItems.count + 1;
+    } else {
+        return 0;
+    }
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -63,17 +72,34 @@
 
 - (IBAction)saveButtonPressed:(id)sender {
     GroceryCategory *groceryCategory = _groceryCategories[self.index];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:groceryCategory.groceryItems.count inSection:0];
-    
-    TextFieldTableViewCell *textFieldTableViewCell = [self.tableView cellForRowAtIndexPath:indexPath];
-    if (![textFieldTableViewCell.textField.text isEqual: @""]) {
-        GroceryCategory *groceryCategory = _groceryCategories[self.index];
-        GroceryItem *groceryItem = [[GroceryItem alloc]initWithTitle:textFieldTableViewCell.textField.text];
-        [groceryCategory.groceryItems addObject:groceryItem];
-    }
-    
+    [self saveTitleFromTextFieldIntoGroceryCategory:groceryCategory];
+    [self saveContentFromTextFieldsIntoGroceryCategory:groceryCategory];
+    _groceryCategories[self.index] = groceryCategory;
     [self.delegate saveGroceryCategories:_groceryCategories];
     [self dismissViewControllerAnimated:YES completion:^{    }];
+}
+
+- (void) saveTitleFromTextFieldIntoGroceryCategory: (GroceryCategory *) groceryCategory {
+    NSIndexPath *groceryCategoryTitleIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];;
+    TextFieldTableViewCell *textFieldTableViewCell = [self.tableView cellForRowAtIndexPath:groceryCategoryTitleIndexPath];
+    if (![textFieldTableViewCell.textField.text isEqual: @""]) {
+        groceryCategory.title = textFieldTableViewCell.textField.text;
+    }
+}
+
+// Keeps adding to groceryItems
+- (void) saveContentFromTextFieldsIntoGroceryCategory:(GroceryCategory *) groceryCategory {
+    
+    NSInteger initalTableViewCellCount = groceryCategory.groceryItems.count + 1;
+    for (int index = 0; index < initalTableViewCellCount; index++) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:1];
+        TextFieldTableViewCell *textFieldTableViewCell = [self.tableView cellForRowAtIndexPath:indexPath];
+        if (![textFieldTableViewCell.textField.text isEqual: @""]) {
+            GroceryItem *groceryItem = [[GroceryItem alloc]initWithTitle:textFieldTableViewCell.textField.text];
+            groceryCategory.groceryItems[index] = groceryItem;
+        }
+    }
+
 }
 
 @end
