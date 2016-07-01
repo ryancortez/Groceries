@@ -12,26 +12,20 @@
 
 #pragma View Lifecycle
 
--(void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     self.navigationItem.title = @"Groceries";
     
-    if (_groceryCategories == nil) {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if (![userDefaults boolForKey:@"isFirstLaunch"]) {
         // Create a default collection of grocery lists
         [self initModel];
         [self saveGroceryCategoriesToUserDefault];
-        
-    } else {
-        NSMutableArray *temporaryGroceryCategories = [[NSMutableArray alloc] init];
-        
-        for (GroceryCategory *groceryCategory in _groceryCategories) {
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            NSData *groceryCategoryData = [userDefaults valueForKey:groceryCategory.title];
-            GroceryCategory *groceryCategory = (GroceryCategory *) [NSKeyedUnarchiver unarchiveObjectWithData:groceryCategoryData];
-            [temporaryGroceryCategories addObject:groceryCategory];
-        }
-        
-        _groceryCategories = temporaryGroceryCategories;
-    }
+        [userDefaults setBool:YES forKey:@"isFirstLaunch"];
+    }   
+    
+    NSData *groceryCategoriesData = [userDefaults objectForKey:@"groceryCategories"];
+    _groceryCategories = (NSMutableArray *) [NSKeyedUnarchiver unarchiveObjectWithData:groceryCategoriesData];
+    
     [self.tableView reloadData];
 }
 
@@ -60,16 +54,16 @@
     NSMutableArray *groceryItemsMutableArray = [[NSMutableArray alloc]initWithArray:groceryItems];
     [_groceryCategories addObject:[groceryCategory initWithTitle:groceryCategory.title andGroceryItems:groceryItemsMutableArray]];
     
+    [self saveGroceryCategoriesToUserDefault];
 }
 
 - (void) saveGroceryCategoriesToUserDefault {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
-    for (GroceryCategory *groceryCategory in _groceryCategories) {
-        NSData *groceryCategoryData = [NSKeyedArchiver archivedDataWithRootObject:groceryCategory];
-        [userDefaults setObject:groceryCategoryData forKey:groceryCategory.title];
-        [userDefaults synchronize];
-    }
+    NSMutableArray *groceryCategories = [[NSMutableArray alloc]initWithArray:_groceryCategories];
+    NSData *groceryCategoryData = [NSKeyedArchiver archivedDataWithRootObject:groceryCategories];
+    [userDefaults setObject:groceryCategoryData forKey:@"groceryCategories"];
+    [userDefaults synchronize];
 }
 
 
@@ -91,13 +85,15 @@
 
 #pragma mark - TableView Delegate Methods
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
 }
 
+#pragma mark - TextField Delegate Methods
+
 #pragma mark - Segues
 
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.identifier isEqualToString:@"groceryCategoryTableViewToGroceryItemTableView"]){
         GroceryItemTableViewController *groceryItemTableViewController = (GroceryItemTableViewController *) segue.destinationViewController;
