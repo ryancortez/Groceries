@@ -12,14 +12,26 @@
 
 #pragma View Lifecycle
 
--(void)viewDidLoad {
+-(void)viewWillAppear:(BOOL)animated {
     self.navigationItem.title = @"Groceries";
     
-    // Create a default collection of grocery lists
-    [self initModel];
-}
-
--(void)viewWillAppear:(BOOL)animated {
+    if (_groceryCategories == nil) {
+        // Create a default collection of grocery lists
+        [self initModel];
+        [self saveGroceryCategoriesToUserDefault];
+        
+    } else {
+        NSMutableArray *temporaryGroceryCategories = [[NSMutableArray alloc] init];
+        
+        for (GroceryCategory *groceryCategory in _groceryCategories) {
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSData *groceryCategoryData = [userDefaults valueForKey:groceryCategory.title];
+            GroceryCategory *groceryCategory = (GroceryCategory *) [NSKeyedUnarchiver unarchiveObjectWithData:groceryCategoryData];
+            [temporaryGroceryCategories addObject:groceryCategory];
+        }
+        
+        _groceryCategories = temporaryGroceryCategories;
+    }
     [self.tableView reloadData];
 }
 
@@ -47,6 +59,17 @@
 - (void) saveGroceryItems: (NSArray *) groceryItems inGroceryCategory: (GroceryCategory *) groceryCategory {
     NSMutableArray *groceryItemsMutableArray = [[NSMutableArray alloc]initWithArray:groceryItems];
     [_groceryCategories addObject:[groceryCategory initWithTitle:groceryCategory.title andGroceryItems:groceryItemsMutableArray]];
+    
+}
+
+- (void) saveGroceryCategoriesToUserDefault {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    for (GroceryCategory *groceryCategory in _groceryCategories) {
+        NSData *groceryCategoryData = [NSKeyedArchiver archivedDataWithRootObject:groceryCategory];
+        [userDefaults setObject:groceryCategoryData forKey:groceryCategory.title];
+        [userDefaults synchronize];
+    }
 }
 
 

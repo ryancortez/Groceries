@@ -25,6 +25,24 @@
     return self;
 }
 
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super init];
+    
+    self.title = [coder decodeObjectForKey:@"title"];
+    self.groceryItems = [coder decodeObjectForKey:@"groceryItems"];
+    
+    return self;
+    
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [coder encodeObject:self.title forKey:@"title"];
+    [coder encodeObject:self.groceryItems forKey:@"groceryItems"];
+    
+}
+
 - (void)setTitle: (NSString *) title andGroceryItems: (NSMutableArray *) groceryItems {
     self.title = title;
     self.groceryItems = groceryItems;

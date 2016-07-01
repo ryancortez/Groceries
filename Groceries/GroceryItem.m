@@ -16,4 +16,16 @@
     return self;
 }
 
+- (instancetype)initWithCoder:(NSCoder *)coder
+{
+    self = [super init];
+    self.title = [coder decodeObjectForKey:@"title"];
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder
+{
+    [coder encodeObject:self.title forKey:@"title"];
+}
+
 @end
