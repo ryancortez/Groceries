@@ -10,6 +10,7 @@
 #import "GroceryCategory.h"
 #import "TextFieldTableViewCell.h"
 
+// Allow any view to save the new content created in the is view
 @protocol AddGroceryCategoryDelegate <NSObject>
 
 - (void) saveGroceryItems: (NSArray *) groceryItems inGroceryCategory: (GroceryCategory *) groceryCategory;

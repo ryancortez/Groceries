@@ -25,22 +25,34 @@
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
+- (instancetype)initWithTitle: (NSString *) title andGroceryItemTitles: (NSArray *) titles {
     self = [super init];
-    
-    self.title = [coder decodeObjectForKey:@"title"];
-    self.groceryItems = [coder decodeObjectForKey:@"groceryItems"];
-    
+    self.title = title;
+    self.groceryItems = [self groceryItemsForTitles:[NSMutableArray arrayWithArray:titles]];
     return self;
-    
 }
 
-- (void)encodeWithCoder:(NSCoder *)coder
-{
+- (NSMutableArray *)groceryItemsForTitles:(NSMutableArray *) titles {
+    NSMutableArray *groceryItems = [[NSMutableArray alloc]init];
+    for (NSString *title in titles) {
+        GroceryItem *groceryItem = [[GroceryItem alloc]initWithTitle:title];
+        [groceryItems addObject:groceryItem];
+    }
+    self.groceryItems = groceryItems;
+    return groceryItems;
+}
+
+
+- (instancetype)initWithCoder:(NSCoder *)coder {
+    self = [super init];
+    self.title = [coder decodeObjectForKey:@"title"];
+    self.groceryItems = [coder decodeObjectForKey:@"groceryItems"];
+    return self;
+}
+
+- (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeObject:self.title forKey:@"title"];
     [coder encodeObject:self.groceryItems forKey:@"groceryItems"];
-    
 }
 
 - (void)setTitle: (NSString *) title andGroceryItems: (NSMutableArray *) groceryItems {

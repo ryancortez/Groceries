@@ -8,16 +8,12 @@
 
 #import "AddGroceryCategoryViewController.h"
 
-
 @implementation AddGroceryCategoryViewController
 
-- (void) viewDidLoad {
-    
-}
+#pragma mark - TableView DataSource
 
-
+// Fill in the TableView
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     if(indexPath.section == 0) {
         TextFieldTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TextFieldTableViewCell"];
         [cell.textField setPlaceholder: @"Add Grocery Category"];
@@ -32,10 +28,12 @@
     }
 }
 
+// Assign the number of the sections in the TableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
 
+// Assign the numbe of rows in each section of the TableView
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
         return 1;
@@ -46,49 +44,62 @@
     }
 }
 
+#pragma mark - TextField Delegate
+
+// Triggered when the return button is pressed
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
     [self saveButtonPressed:self];
     return YES;
 }
 
+#pragma mark - Actions
+
 - (IBAction)cancelButtonPressed:(id)sender {
     [self dismissViewControllerAnimated:YES completion:^{    }];
-    
 }
+
+#pragma mark Save Content
+
+// Take all text content from the TableView rows and add it to the model
 - (IBAction)saveButtonPressed:(id)sender {
-    
-    NSIndexPath *categoryTitleIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+
+    NSString *title = [self categoryTitleFromTextFieldTableViewCellContent];
+    NSMutableArray *groceryItems = [self groceryItemsFromTextFieldTableViewCellContent];
+    GroceryCategory *category = [[GroceryCategory alloc]initWithTitle:title andGroceryItems:groceryItems];
+    [self.delegate saveGroceryItems:groceryItems inGroceryCategory: category];
+    [self dismissViewControllerAnimated:YES completion:^{  }];
+}
+
+#pragma mark Save Content - Helper Methods
+
+// Get hard coded paths for all the grocery items
+- (NSArray *) indexPathsForAllCellsInTheTableView {
     NSIndexPath *groceryItem1TitleIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
     NSIndexPath *groceryItem2TitleIndexPath = [NSIndexPath indexPathForRow:1 inSection:1];
     NSIndexPath *groceryItem3TitleIndexPath = [NSIndexPath indexPathForRow:2 inSection:1];
-    
-    TextFieldTableViewCell *categoryTableViewCell = [self.tableView cellForRowAtIndexPath:categoryTitleIndexPath];
-    NSString *title = categoryTableViewCell.textField.text;
-    
-    TextFieldTableViewCell *groceryItem1TableViewCell = [self.tableView cellForRowAtIndexPath:groceryItem1TitleIndexPath];
-    TextFieldTableViewCell *groceryItem2TableViewCell = [self.tableView cellForRowAtIndexPath:groceryItem2TitleIndexPath];
-    TextFieldTableViewCell *groceryItem3TableViewCell = [self.tableView cellForRowAtIndexPath:groceryItem3TitleIndexPath];
-    
-    GroceryItem *groceryItem1 = [[GroceryItem alloc]initWithTitle:groceryItem1TableViewCell.textField.text];
-    GroceryItem *groceryItem2 = [[GroceryItem alloc]initWithTitle:groceryItem2TableViewCell.textField.text];
-    GroceryItem *groceryItem3 = [[GroceryItem alloc]initWithTitle:groceryItem3TableViewCell.textField.text];
-    
+    NSArray *indexPaths = [[NSArray alloc]initWithObjects: groceryItem1TitleIndexPath, groceryItem2TitleIndexPath, groceryItem3TitleIndexPath, nil];
+    return indexPaths;
+}
+
+// Get the GroceryCategory title from the text
+- (NSString *) categoryTitleFromTextFieldTableViewCellContent {
+    NSIndexPath *categoryTitleIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    TextFieldTableViewCell *textFieldTableViewCell = [self.tableView cellForRowAtIndexPath:categoryTitleIndexPath];
+    return textFieldTableViewCell.textField.text;
+}
+
+// Get the content add by the user in the grocery item text fields
+- (NSMutableArray *) groceryItemsFromTextFieldTableViewCellContent {
     NSMutableArray *groceryItems = [[NSMutableArray alloc]init];
-    if (![groceryItem1.title isEqualToString:@""]) {
-        [groceryItems addObject:groceryItem1];
+    for (NSIndexPath *indexPath in [self indexPathsForAllCellsInTheTableView]) {
+        TextFieldTableViewCell *textFieldTableViewCell = [self.tableView cellForRowAtIndexPath:indexPath];
+        GroceryItem *groceryItem = [[GroceryItem alloc]initWithTitle:textFieldTableViewCell.textField.text];
+        if(![groceryItem.title isEqualToString:@""]) {
+            [groceryItems addObject:groceryItem];
+        }
     }
-    if (![groceryItem2.title isEqualToString:@""]) {
-        [groceryItems addObject:groceryItem2];
-    }
-    if (![groceryItem3.title isEqualToString:@""]) {
-        [groceryItems addObject:groceryItem3];
-    }
-    
-    GroceryCategory *category = [[GroceryCategory alloc]initWithTitle:title andGroceryItems:groceryItems];
-    
-    [self.delegate saveGroceryItems:groceryItems inGroceryCategory: category];
-    [self dismissViewControllerAnimated:YES completion:^{  }];
+    return groceryItems;
 }
 
 @end

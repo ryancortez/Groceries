@@ -16,6 +16,7 @@
 
 - (instancetype)initWithTitle: (NSString *) title;
 - (instancetype)initWithTitle: (NSString *) title andGroceryItems: (NSMutableArray *) groceryItems;
+- (instancetype)initWithTitle: (NSString *) title andGroceryItemTitles: (NSArray *) titles;
 - (void)setTitle: (NSString *) title andGroceryItems: (NSMutableArray *) groceryItems;
 - (void)addGroceryItem:(GroceryItem *)groceryItem;
 
