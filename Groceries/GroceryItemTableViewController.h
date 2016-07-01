@@ -14,5 +14,7 @@
 @interface GroceryItemTableViewController : UITableViewController <AddGroceryItemDelegate>
 
 @property GroceryCategory *groceryCategory;
+@property NSInteger index;
+@property NSMutableArray *groceryCategories;
 
 @end

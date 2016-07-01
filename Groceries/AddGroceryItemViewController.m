@@ -11,19 +11,24 @@
 @implementation AddGroceryItemViewController
 
 
--(void)viewDidLoad {
+-(void)viewWillAppear:(BOOL)animated {
     
     self.navigationController.title = _groceryCategory.title;
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSData *groceryCategoriesData = [userDefaults objectForKey:@"groceryCategories"];
+    _groceryCategories = (NSMutableArray *) [NSKeyedUnarchiver unarchiveObjectWithData:groceryCategoriesData];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     if(indexPath.section == 0) {
+        GroceryCategory *groceryCategory = _groceryCategories[self.index];
         
-        if (indexPath.row < _groceryCategory.groceryItems.count) {
+        if (indexPath.row < groceryCategory.groceryItems.count) {
             TextFieldTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TextFieldTableViewCell"];
             cell.textField.placeholder = @"Add Grocery Item";
-            GroceryItem *groceryItem = _groceryCategory.groceryItems[indexPath.row];
+            GroceryItem *groceryItem = groceryCategory.groceryItems[indexPath.row];
             cell.textField.text = groceryItem.title;
             return cell;
         } else {
@@ -52,25 +57,23 @@
 }
 
 - (IBAction)cancelButtonPressed:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
-    
+    [self dismissViewControllerAnimated:YES completion:^{    }];
 }
+
 - (IBAction)saveButtonPressed:(id)sender {
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_groceryCategory.groceryItems.count inSection:0];
     
     TextFieldTableViewCell *textFieldTableViewCell = [self.tableView cellForRowAtIndexPath:indexPath];
     if (![textFieldTableViewCell.textField.text isEqual: @""]) {
-        GroceryItem *groceryItem = [[GroceryItem alloc]initWithTitle:textFieldTableViewCell.textField.text]; 
-        [_groceryCategory.groceryItems addObject:groceryItem];
+        
+        GroceryCategory *groceryCategory = _groceryCategories[self.index];
+        GroceryItem *groceryItem = [[GroceryItem alloc]initWithTitle:textFieldTableViewCell.textField.text];
+        [groceryCategory.groceryItems addObject:groceryItem];
     }
     
-    [self.delegate saveGroceryItems:_groceryCategory.groceryItems inGroceryCategory:_groceryCategory];
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+    [self.delegate saveGroceryCategories:_groceryCategories];
+    [self dismissViewControllerAnimated:YES completion:^{    }];
 }
 
 @end

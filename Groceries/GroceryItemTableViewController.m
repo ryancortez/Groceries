@@ -1,3 +1,4 @@
+
 //
 //  GroceryItemTableViewController.m
 //  Groceries
@@ -11,29 +12,48 @@
 
 @implementation GroceryItemTableViewController
 
--(void)viewDidLoad {
+- (void)viewDidLoad {
     self.navigationItem.title = _groceryCategory.title;
 }
 
--(void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated {
     [self.tableView reloadData];
 }
 
 - (void) saveGroceryItems: (NSArray *) groceryItems inGroceryCategory: (GroceryCategory *) groceryCategory {
     NSMutableArray *mutableArray = [[NSMutableArray alloc] initWithArray:groceryCategory.groceryItems];
-    [_groceryCategory setTitle:groceryCategory.title andGroceryItems:mutableArray ];
+    _groceryCategories[_index] = groceryCategory;
+    [self saveGroceryCategoriesToUserDefault];
+    [_groceryCategory setTitle:groceryCategory.title andGroceryItems:mutableArray];
+    
+}
+
+- (void) saveGroceryCategories: (NSMutableArray *) groceryCategories {
+    _groceryCategories = groceryCategories;
+    [self saveGroceryCategoriesToUserDefault];
+    [self.tableView reloadData];
+}
+
+- (void) saveGroceryCategoriesToUserDefault {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSMutableArray *groceryCategories = [[NSMutableArray alloc]initWithArray:_groceryCategories];
+    NSData *groceryCategoryData = [NSKeyedArchiver archivedDataWithRootObject:groceryCategories];
+    [userDefaults setObject:groceryCategoryData forKey:@"groceryCategories"];
+    [userDefaults synchronize];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *groceryItemCell = [tableView dequeueReusableCellWithIdentifier:@"GroceryItemCell"];
-    GroceryItem *groceryItem = _groceryCategory.groceryItems[indexPath.row];
+    GroceryCategory *groceryCategory = _groceryCategories[self.index];
+    GroceryItem *groceryItem = groceryCategory.groceryItems[indexPath.row];
     groceryItemCell.textLabel.text = groceryItem.title;
     return groceryItemCell;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return _groceryCategory.groceryItems.count;
+    GroceryCategory *groceryCategory = _groceryCategories[self.index];
+    return groceryCategory.groceryItems.count ;
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -43,6 +63,8 @@
         addGroceryItemViewController.delegate = self;
         addGroceryItemViewController.groceryCategory = [[GroceryCategory alloc]init];
         addGroceryItemViewController.groceryCategory = _groceryCategory;
+        addGroceryItemViewController.groceryCategories = _groceryCategories;
+        addGroceryItemViewController.index = self.index;
     }
 }
 

@@ -99,7 +99,8 @@
         GroceryItemTableViewController *groceryItemTableViewController = (GroceryItemTableViewController *) segue.destinationViewController;
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         groceryItemTableViewController.groceryCategory = _groceryCategories[indexPath.row];
-        NSLog(@"");
+        groceryItemTableViewController.index = indexPath.row;
+        groceryItemTableViewController.groceryCategories = _groceryCategories;
     }
     
     if ([segue.identifier isEqualToString:@"groceryCategoryTableViewToAddGroceryCategoryTableViewSegue"]) {
@@ -107,8 +108,7 @@
         
         AddGroceryCategoryViewController *addGroceryCategoryViewController = (AddGroceryCategoryViewController *) navigationController.viewControllers.firstObject;
         addGroceryCategoryViewController.delegate = self;
-        
-        NSLog(@"");
+
     }
     
 }

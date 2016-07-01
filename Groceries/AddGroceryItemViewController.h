@@ -14,6 +14,7 @@
 @protocol AddGroceryItemDelegate <NSObject>
 
 - (void) saveGroceryItems: (NSArray *) groceryItems inGroceryCategory: (GroceryCategory *) groceryCategory;
+- (void) saveGroceryCategories: (NSMutableArray *) groceryCategories;
 
 @end
 
@@ -21,5 +22,7 @@
 
 @property GroceryCategory *groceryCategory;
 @property id<AddGroceryItemDelegate> delegate;
+@property NSInteger index;
+@property NSMutableArray *groceryCategories;
 
 @end
