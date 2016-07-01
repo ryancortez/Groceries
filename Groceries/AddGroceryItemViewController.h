@@ -20,7 +20,6 @@
 
 @interface AddGroceryItemViewController : UITableViewController <UITextFieldDelegate>
 
-@property GroceryCategory *groceryCategory;
 @property id<AddGroceryItemDelegate> delegate;
 @property NSInteger index;
 @property NSMutableArray *groceryCategories;

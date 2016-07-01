@@ -36,7 +36,6 @@
 
 - (void) saveGroceryCategoriesToUserDefault {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
     NSMutableArray *groceryCategories = [[NSMutableArray alloc]initWithArray:_groceryCategories];
     NSData *groceryCategoryData = [NSKeyedArchiver archivedDataWithRootObject:groceryCategories];
     [userDefaults setObject:groceryCategoryData forKey:@"groceryCategories"];
@@ -61,8 +60,6 @@
         UINavigationController *navigationController = (UINavigationController *) segue.destinationViewController;
         AddGroceryItemViewController *addGroceryItemViewController = navigationController.viewControllers.firstObject;
         addGroceryItemViewController.delegate = self;
-        addGroceryItemViewController.groceryCategory = [[GroceryCategory alloc]init];
-        addGroceryItemViewController.groceryCategory = _groceryCategory;
         addGroceryItemViewController.groceryCategories = _groceryCategories;
         addGroceryItemViewController.index = self.index;
     }

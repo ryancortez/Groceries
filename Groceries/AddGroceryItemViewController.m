@@ -12,8 +12,8 @@
 
 
 -(void)viewWillAppear:(BOOL)animated {
-    
-    self.navigationController.title = _groceryCategory.title;
+    GroceryCategory *groceryCategory = _groceryCategories[self.index];
+    self.navigationController.title = groceryCategory.title;
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSData *groceryCategoriesData = [userDefaults objectForKey:@"groceryCategories"];
@@ -47,7 +47,8 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return _groceryCategory.groceryItems.count + 1;
+    GroceryCategory *groceryCategory = _groceryCategories[self.index];
+    return groceryCategory.groceryItems.count + 1;
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -61,12 +62,11 @@
 }
 
 - (IBAction)saveButtonPressed:(id)sender {
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:_groceryCategory.groceryItems.count inSection:0];
+    GroceryCategory *groceryCategory = _groceryCategories[self.index];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:groceryCategory.groceryItems.count inSection:0];
     
     TextFieldTableViewCell *textFieldTableViewCell = [self.tableView cellForRowAtIndexPath:indexPath];
     if (![textFieldTableViewCell.textField.text isEqual: @""]) {
-        
         GroceryCategory *groceryCategory = _groceryCategories[self.index];
         GroceryItem *groceryItem = [[GroceryItem alloc]initWithTitle:textFieldTableViewCell.textField.text];
         [groceryCategory.groceryItems addObject:groceryItem];
