@@ -8,10 +8,13 @@
 
 #import "AddGroceryItemViewController.h"
 
-@implementation AddGroceryItemViewController
+@implementation AddGroceryItemViewController {
+    int numberOfCellsAddedByTheUser;
+}
 
 
 -(void)viewWillAppear:(BOOL)animated {
+    numberOfCellsAddedByTheUser = 0;
     GroceryCategory *groceryCategory = _groceryCategories[self.index];
     self.navigationController.title = groceryCategory.title;
     
@@ -37,6 +40,9 @@
         } else {
             TextFieldTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TextFieldTableViewCell"];
             cell.textField.placeholder = @"Add Grocery Item";
+            [cell.textField addTarget:self
+                          action:@selector(textFieldWasTapped:)
+                forControlEvents:UIControlEventEditingDidBegin];
             return cell;
         }
     } else {
@@ -54,10 +60,27 @@
     if (section == 0) {
         return 1;
     } else if (section == 1) {
-        return groceryCategory.groceryItems.count + 1;
+        return groceryCategory.groceryItems.count + 1 + numberOfCellsAddedByTheUser;
     } else {
         return 0;
     }
+}
+
+- (void) textFieldWasTapped: (UITextField *) textField {
+    [textField removeTarget:self action:@selector(textFieldWasTapped:) forControlEvents:UIControlEventEditingDidBegin];
+    [self insertRowInTable];
+}
+
+- (void) insertRowInTable {
+    GroceryCategory *groceryCategory = _groceryCategories[self.index];
+    numberOfCellsAddedByTheUser++;
+    NSArray *indexPaths = [NSArray arrayWithObject:[NSIndexPath indexPathForRow:(groceryCategory.groceryItems.count + numberOfCellsAddedByTheUser) inSection:1]];
+    [[self tableView] insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
+   
+}
+
+- (void) removeTargetsFromEditedRows {
+    
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -90,7 +113,7 @@
 // Keeps adding to groceryItems
 - (void) saveContentFromTextFieldsIntoGroceryCategory:(GroceryCategory *) groceryCategory {
     
-    NSInteger initalTableViewCellCount = groceryCategory.groceryItems.count + 1;
+    NSInteger initalTableViewCellCount = groceryCategory.groceryItems.count + 1 + numberOfCellsAddedByTheUser;
     for (int index = 0; index < initalTableViewCellCount; index++) {
         NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:1];
         TextFieldTableViewCell *textFieldTableViewCell = [self.tableView cellForRowAtIndexPath:indexPath];
