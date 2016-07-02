@@ -15,7 +15,7 @@
 #pragma mark - View Lifecycle
 
 - (void)viewWillAppear:(BOOL)animated {
-    self.navigationItem.title = _groceryCategory.title;
+    self.navigationItem.title = [_groceryCategories[self.index] title];
     [self.tableView reloadData];
 }
 
